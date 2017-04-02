@@ -18,4 +18,9 @@ func TestCodiceFiscale(t *testing.T) {
 		t.Fatal("Error! Codice Fiscale should be invalid!")
 	}
 	fmt.Println("M:", err)
+	s, err = CodiceFiscale("RSSMCL99M07F205")
+	if s {
+		t.Fatal("Error! Codice Fiscale should be invalid! Short")
+	}
+	fmt.Println("M:", err)
 }
