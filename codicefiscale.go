@@ -1,6 +1,16 @@
 package codicefiscale
 
-//CFError - error structure for CodiceFiscale
+import "strings"
+
+/*
+package codicefiscale - controlla se è formalmente valido
+Licenza: LGPL
+Porting basato sulla versione PHP pubblicata da Umberto Salsi su icosaedro:
+sito web: http://www.icosaedro.it/cf-pi/index.html
+Porting by: Marco Banfi
+*/
+
+//CFError - error structure for CodiceFiscale - identificabile con typecast
 type CFError struct {
 	msg string
 }
@@ -10,6 +20,7 @@ func (cf *CFError) Error() string {
 }
 
 //CodiceFiscale  controlla il codice fiscale, restituisce doppio valore, true/false e messaggio ove opportuno
+//si aspetta in ingresso il codice fiscale MAIUSCOLO
 func CodiceFiscale(cfin string) (bool, *CFError) {
 	if len(cfin) != 16 {
 		er := new(CFError)
@@ -23,13 +34,14 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 		"I": 19, "J": 21, "K": 2, "L": 4, "M": 18, "N": 20, "O": 11, "P": 3, "Q": 6, "R": 8,
 		"S": 12, "T": 14, "U": 16, "V": 10, "W": 22, "X": 25, "Y": 24, "Z": 23,
 	}
-	//ordinamento
+	//ordinamento - più semplice di int(rune) - int('A') oppure int('0')
 	ordv := map[string]int{
 		"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9,
 		"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6, "H": 7,
 		"I": 8, "J": 9, "K": 10, "L": 11, "M": 12, "N": 13, "O": 14, "P": 15, "Q": 16, "R": 17,
 		"S": 18, "T": 19, "U": 20, "V": 21, "W": 22, "X": 23, "Y": 24, "Z": 25,
 	}
+	cfin = strings.ToUpper(cfin)
 	var s int
 	for i := 1; i <= 13; i += 2 {
 		s += ordv[string(cfin[i])]

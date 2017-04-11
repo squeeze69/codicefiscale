@@ -8,19 +8,22 @@ import (
 )
 
 func TestCodiceFiscale(t *testing.T) {
-	s, err := CodiceFiscale("RSSMCL99M07F205Y")
+	//valido
+	s, err := CodiceFiscale("MROrSs00a00A000U")
 	fmt.Println("S:", s, "M:", err)
 	if !s {
 		t.Fatal("Error! Codice Fiscale should be valid")
 	}
-	s, err = CodiceFiscale("RSSMCL99M07F205Z")
+	//non valido (codice di controllo non corrisponde)
+	s, err = CodiceFiscale("MRORSS00A00A000V")
 	if s {
 		t.Fatal("Error! Codice Fiscale should be invalid!")
 	}
 	fmt.Println("M:", err)
-	s, err = CodiceFiscale("RSSMCL99M07F205")
+	//Lunghezza errata
+	s, err = CodiceFiscale("MROrSs00a00A000")
 	if s {
-		t.Fatal("Error! Codice Fiscale should be invalid! Short")
+		t.Fatal("Error! Codice Fiscale should be invalid! Invalid length")
 	}
 	fmt.Println("M:", err)
 }
