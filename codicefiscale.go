@@ -42,13 +42,20 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 		"S": 18, "T": 19, "U": 20, "V": 21, "W": 22, "X": 23, "Y": 24, "Z": 25,
 	}
 	cfin = strings.ToUpper(cfin)
-	var s int
-	for i := 1; i <= 13; i += 2 {
-		s += ordv[string(cfin[i])]
+	//verifica per simboli inattesi
+	for _, v := range cfin {
+		if _, ok := ordv[string(v)]; !ok {
+			er := new(CFError)
+			er.msg = "Simboli non validi"
+			return false, er
+		}
 	}
-	for i := 0; i <= 14; i += 2 {
+	var s int
+	for i := 0; i <= 13; i += 2 {
+		s += ordv[string(cfin[i+1])]
 		s += tcf[string(cfin[i])]
 	}
+	s += tcf[string(cfin[14])]
 	if s%26 != ordv[string(cfin[15])] {
 		er := new(CFError)
 		er.msg = "Codice Di Controllo"
