@@ -3,11 +3,13 @@ package codicefiscale
 import "strings"
 
 /*
-package codicefiscale - controlla se è formalmente valido
+Verifica codice fiscale - 2017 - Squeeze69
 Licenza: LGPL
 Porting basato sulla versione PHP pubblicata da Umberto Salsi su icosaedro:
 sito web: http://www.icosaedro.it/cf-pi/index.html
-Porting by: Marco Banfi
+
+package: https://github.com/squeeze69/codicefiscale
+con go: go get github.com/squeeze69/codicefiscale
 */
 
 //CFError - error structure for CodiceFiscale - identificabile con typecast
