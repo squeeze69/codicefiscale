@@ -5,7 +5,7 @@ import "strings"
 /*
 Verifica codice fiscale - 2017 - Squeeze69
 Licenza: LGPL
-Porting basato sulla versione PHP pubblicata da Umberto Salsi su icosaedro:
+Porting basato sulle informazioni pubblicate da Umberto Salsi su Icosaedro:
 sito web: http://www.icosaedro.it/cf-pi/index.html
 
 package: https://github.com/squeeze69/codicefiscale
@@ -22,15 +22,16 @@ func (cf *CFError) Error() string {
 }
 
 //CodiceFiscale  controlla il codice fiscale, restituisce doppio valore, true/false e messaggio, ove opportuno
-//si aspetta in ingresso il codice fiscale, non importa il case (viene convertito in maiuscolo)
 //se cfin è vuota, viene considerata valida, per questo caso, il controllo dovrebbe essere altrove
+//Ingresso: cfin: stringa,non importa maiuscolo o minuscolo
+//Uscita: bool:true (a posto)/false (problemi) e *CFError (nil (a posto)/puntatore all'errore (problemi)
 func CodiceFiscale(cfin string) (bool, *CFError) {
 	if len(cfin) == 0 {
 		return true,nil
 	}
 	if len(cfin) != 16 {
 		er := new(CFError)
-		er.msg = "Wrong Length"
+		er.msg = "Lunghezza Sbagliata"
 		return false, er
 	}
 	//decodifica carattere di controllo cf
@@ -52,7 +53,7 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 	for _, v := range cfin {
 		if _, ok := ordv[string(v)]; !ok {
 			er := new(CFError)
-			er.msg = "Invalid chars"
+			er.msg = "Caratteri Non Validi"
 			return false, er
 		}
 	}
@@ -63,7 +64,7 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 	}
 	if s%26 != ordv[string(cfin[15])] {
 		er := new(CFError)
-		er.msg = "Wrong Check Code"
+		er.msg = "Carattere Di Controllo Non Valido"
 		return false, er
 	}
 	return true, nil
