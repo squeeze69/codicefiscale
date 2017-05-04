@@ -1,7 +1,8 @@
-Verifica Codice Fiscale in GO (golang.org)
-2017
+Verifica Codice Fiscale in GO (http://golang.org)
 
-License: LGPL
+License: LGPLv3
+
+2017
 
 package: go get github.com/squeeze69/codicefiscale
 
