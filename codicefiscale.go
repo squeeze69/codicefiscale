@@ -62,8 +62,7 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 	}
 	s := tcf[string(cfin[14])]
 	for i := 0; i <= 13; i += 2 {
-		s += ordv[string(cfin[i+1])]
-		s += tcf[string(cfin[i])]
+		s += tcf[string(cfin[i])]+ordv[string(cfin[i+1])]
 	}
 	if s%26 != ordv[string(cfin[15])] {
 		er := new(CFError)
