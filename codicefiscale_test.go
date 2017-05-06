@@ -8,8 +8,9 @@ import (
 )
 
 func TestCodiceFiscale(t *testing.T) {
-	//valido
-	testOK := []string{"ABCDEF12B23P432P", "MROrSs00a00A000U",""}
+	//codici validi
+	testOK := []string{"ABCDEF12B23P432P", "MROrSs00a00A000U", ""}
+	//codici non validi
 	testKO := []string{"ABCDEF12B23P432X", "MRORSS00A00A000V", "MROrSs00a00-A00U", "MRORSS00A.+A000V", "MROrSs00a00A000"}
 	for _, v := range testOK {
 		s, err := CodiceFiscale(v)
@@ -25,6 +26,6 @@ func TestCodiceFiscale(t *testing.T) {
 		if err == nil {
 			t.Fatal("Error! Codice Fiscale", v, " should be invalid")
 		}
-		fmt.Printf("Ok (invalid) \"%s\",%s\n", v,err)
+		fmt.Printf("Ok (invalid) \"%s\",%s\n", v, err)
 	}
 }
