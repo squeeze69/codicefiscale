@@ -1,8 +1,8 @@
-# Verifica Codice Fiscale in GO (http://golang.org)
+# Verifica Codice Fiscale in [GO](http://golang.org)
 
 ## License: LGPLv3
 
-2017
+#### 2017
 
 package: go get github.com/squeeze69/codicefiscale
 
@@ -26,4 +26,4 @@ func main() {
 }
 ```
 
-per la partita IVA, vedi: https://github.com/squeeze69/partitaiva
+Simile ma per la [partita IVA](https://github.com/squeeze69/partitaiva)
