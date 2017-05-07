@@ -2,7 +2,9 @@
 
 ## Licenza: LGPLv3
 
-Package: go get github.com/squeeze69/codicefiscale
+**Package**: github.com/squeeze69/codicefiscale
+
+**Download del package**: go get github.com/squeeze69/codicefiscale
 
 Porting basato sulle informazioni pubblicate da Umberto Salsi su [Icosaedro](http://www.icosaedro.it/cf-pi/index.html)
 
