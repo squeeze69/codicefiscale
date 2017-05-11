@@ -2,7 +2,7 @@ package codicefiscale
 
 import "strings"
 
-//	omcndx := []int{7, 8, 10, 11, 13, 14, 15}
+//	caratteri da modificare, base 1: 7, 8, 10, 11, 13, 14, 15
 var omcndx = map[int]bool{
 	6: true, 7: true, 9: true, 10: true, 12: true, 13: true, 14: true,
 }
@@ -12,9 +12,10 @@ var omc = map[string]string{
 	"R": "5", "S": "6", "T": "7", "U": "8", "V": "9",
 }
 
-func deomocodici(s string) string {
+//inverte le variazioni per omocodie
+func deomocodia(s string) string {
 	var s2 string
-	for i, c := range s {
+	for i, c := range s[0:15] {
 		if _, ok := omcndx[i]; ok {
 			if v, vb := omc[string(c)]; vb {
 				s2 = s2 + v
@@ -45,7 +46,7 @@ func ConfrontaCodicifiscali(a, b string) (bool, *CFError) {
 	if strings.Compare(a, b) == 0 {
 		return true, nil
 	}
-	ad := deomocodici(a)
+	ad := deomocodia(a)
 	if strings.Compare(ad[0:15], b[0:15]) != 0 {
 		er := new(CFError)
 		er.msg = "Non corrispondono"
