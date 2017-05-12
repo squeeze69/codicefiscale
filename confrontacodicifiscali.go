@@ -7,6 +7,7 @@ var omcndx = map[int]bool{
 	6: true, 7: true, 9: true, 10: true, 12: true, 13: true, 14: true,
 }
 
+// mappatura per invertire trasformazioni in caso di omocodie
 var omc = map[string]string{
 	"L": "0", "M": "1", "N": "2", "P": "3", "Q": "4",
 	"R": "5", "S": "6", "T": "7", "U": "8", "V": "9",
@@ -34,7 +35,7 @@ func deomocodia(s string) string {
 //se non corrispondono, riconduce entrambi alla forma non per omocodie e riconfronta
 //uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
 //da sostituire: 7,8,10,11,13,14,15
-func ConfrontaCodicifiscali(a, b string) (bool, *CFError) {
+func ConfrontaCodicifiscaliOmocodici(a, b string) (bool, *CFError) {
 	if _, err := CodiceFiscale(a); err != nil {
 		return false, err
 	}
@@ -47,7 +48,8 @@ func ConfrontaCodicifiscali(a, b string) (bool, *CFError) {
 		return true, nil
 	}
 	ad := deomocodia(a)
-	if strings.Compare(ad[0:15], b[0:15]) != 0 {
+	bd := deomocodia(b)
+	if strings.Compare(ad[0:15], bd[0:15]) != 0 {
 		er := new(CFError)
 		er.msg = "Non corrispondono"
 		return false, er
