@@ -55,3 +55,18 @@ func TestConfrontaCodicifiscaliOmocodici(t *testing.T) {
 		t.Fatal("KO. Errore, dovrebbero essere diversi", oa, sb, err)
 	}
 }
+
+func TestConfrontaCodicifiscali(t *testing.T) {
+	if _, err := ConfrontaCodicifiscali("ABCDEF12B23P432P", "ABCDEF12B23P432P"); err != nil {
+		t.Fatal("KO. Errore, dovrebbe essere uguale", err)
+	}
+	fmt.Println("Ok. Uguale")
+
+	a := "ABCDEF12B23P432P"
+	s, _ := Codicedicontrollo("ABCDEF12B23P433")
+	sb := "ABCDEF12B23P433" + s
+	if _, err := ConfrontaCodicifiscali(a, sb); err == nil {
+		t.Fatal("KO. Errore, dovrebbero essere diversi", a, sb, err)
+	}
+	fmt.Println("Ok. Diverso")
+}

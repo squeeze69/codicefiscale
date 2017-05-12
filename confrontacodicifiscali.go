@@ -2,6 +2,19 @@ package codicefiscale
 
 import "strings"
 
+/*
+Confronto Codifi Fiscali
+Versione: 1.0
+Data: 1/5/2017
+Autore: Squeeze69
+Licenza: LGPL
+Porting basato sulle informazioni pubblicate da Umberto Salsi su Icosaedro:
+sito web: http://www.icosaedro.it/cf-pi/index.html
+
+package: https://github.com/squeeze69/codicefiscale
+con go: go get github.com/squeeze69/codicefiscale
+*/
+
 //	caratteri da modificare, base 1: 7, 8, 10, 11, 13, 14, 15
 var omcndx = map[int]bool{
 	6: true, 7: true, 9: true, 10: true, 12: true, 13: true, 14: true,
@@ -30,7 +43,7 @@ func deomocodia(s string) string {
 	return s2
 }
 
-//ConfrontaCodicifiscali : ingresso a,b, tiene conto di omocodie per confronto
+//ConfrontaCodicifiscaliOmocodici : ingresso a,b, tiene conto di omocodie per confronto
 //ingresso: a,b stringhe con i codici fiscali da confrontare
 //se non corrispondono, riconduce entrambi alla forma non per omocodie e riconfronta
 //uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
@@ -55,4 +68,26 @@ func ConfrontaCodicifiscaliOmocodici(a, b string) (bool, *CFError) {
 		return false, er
 	}
 	return true, nil
+}
+
+//ConfrontaCodicifiscali : controlla e confronta due codici fiscali
+//DEVONO corrispondere al 100% - prima verifica il codice di controllo
+//Ingresso: a,b : string : codifici fiscali
+//Uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
+func ConfrontaCodicifiscali(a, b string) (bool, *CFError) {
+	if _, err := CodiceFiscale(a); err != nil {
+		return false, err
+	}
+	if _, err := CodiceFiscale(b); err != nil {
+		return false, err
+	}
+	a = strings.ToUpper(a)
+	b = strings.ToUpper(b)
+	if strings.Compare(a, b) == 0 {
+		return true, nil
+	}
+
+	er := new(CFError)
+	er.msg = "Non corrispondono"
+	return false, er
 }

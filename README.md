@@ -35,7 +35,7 @@ NOTA: il PRIMO può essere variato per omocodia
 ```
 //Confronto codici fiscali - invertendo le modifiche in caso di omocodie
 //prima fa una verifica di bontà in base al codice di controllo
-//solo il PRIMO codice può essere modificato per omocodie
+//entrambi i codici possono essere modificati per omocodie
 package main
 
 import (
