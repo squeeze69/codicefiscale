@@ -12,6 +12,8 @@ func TestCodiceFiscale(t *testing.T) {
 	testOK := []string{"ABCDEF12B23P432P", "MROrSs00a00A000U", ""}
 	//codici non validi
 	testKO := []string{"ABCDEF12B23P432X", "MRORSS00A00A000V", "MROrSs00a00-A00U", "MRORSS00A.+A000V", "MROrSs00a00A000"}
+
+	fmt.Println("test CondiceFiscale")
 	for _, v := range testOK {
 
 		s, err := CodiceFiscale(v)
@@ -31,6 +33,7 @@ func TestCodiceFiscale(t *testing.T) {
 }
 
 func TestCodicedicontrollo(t *testing.T) {
+	fmt.Println("test Codicedicontrollo")
 	if s, err := Codicedicontrollo("ABCDEF12B23P432"); s != "P" {
 		t.Fatal("Ko. Errore, il codice di controllo è sbagliato atteso \"P\", avuto", s, err)
 	}
@@ -38,6 +41,7 @@ func TestCodicedicontrollo(t *testing.T) {
 }
 
 func TestConfrontaCodicifiscaliOmocodici(t *testing.T) {
+	fmt.Println("test ConfrontaCodicifiscaliOmocodici")
 	s, _ := Codicedicontrollo("ABCDEF12B23P432")
 	o, _ := Codicedicontrollo("ABCDEF12B23P43N")
 	sb := "ABCDEF12B23P432" + s
@@ -57,10 +61,11 @@ func TestConfrontaCodicifiscaliOmocodici(t *testing.T) {
 }
 
 func TestConfrontaCodicifiscali(t *testing.T) {
+	fmt.Println("test ConfrontaCodicifiscali")
 	if _, err := ConfrontaCodicifiscali("ABCDEF12B23P432P", "ABCDEF12B23P432P"); err != nil {
 		t.Fatal("KO. Errore, dovrebbe essere uguale", err)
 	}
-	fmt.Println("Ok. Uguale")
+	fmt.Println("Ok. Uguali")
 
 	a := "ABCDEF12B23P432P"
 	s, _ := Codicedicontrollo("ABCDEF12B23P433")
@@ -68,5 +73,5 @@ func TestConfrontaCodicifiscali(t *testing.T) {
 	if _, err := ConfrontaCodicifiscali(a, sb); err == nil {
 		t.Fatal("KO. Errore, dovrebbero essere diversi", a, sb, err)
 	}
-	fmt.Println("Ok. Diverso")
+	fmt.Println("Ok. Diversi")
 }

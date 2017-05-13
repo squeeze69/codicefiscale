@@ -1,4 +1,4 @@
-# Verifica Codice Fiscale in [GO](http://golang.org)
+# Verifica e Confronti Codice Fiscale in [GO](http://golang.org)
 [![Build Status](https://travis-ci.org/squeeze69/codicefiscale.svg?branch=master)](https://travis-ci.org/squeeze69/codicefiscale)
 ## Licenza: LGPLv3
 
@@ -29,9 +29,9 @@ func main() {
 }
 ```
 
-## Confronto dei codici fiscali
+## Confronto dei codici fiscali anche con omocodie
 
-NOTA: il PRIMO può essere variato per omocodia
+**NOTA**: il confronto da esito positivo anche in caso di omocodie (uno è la variante dell'altro)
 ```
 //Confronto codici fiscali - invertendo le modifiche in caso di omocodie
 //prima fa una verifica di bontà in base al codice di controllo
@@ -46,9 +46,31 @@ import (
 func main() {
 	ok, err := codicefiscale.ConfrontaCodicifiscaliOmocodici("ABCDEF12B23P43NE", "ABCDEF12B23P432P")
 	if err != nil {
-		fmt.Println("Codici Fiscali diversi:",err)
+		fmt.Println("Codici Fiscali diversi o non validi:",err)
 	} else {
 		fmt.Println("Codice Fiscali uguali (tenendo conto di eventuali omocodie)")
+	}
+}
+```
+
+## Confronto dei codici fiscali
+
+```
+//Confronto codici fiscali
+//prima fa una verifica di bontà in base al codice di controllo
+package main
+
+import (
+	"github.com/squeeze69/codicefiscale"
+	"fmt"
+)
+
+func main() {
+	ok, err := codicefiscale.ConfrontaCodicifiscali("ABCDEF12B23P43NE", "ABCDEF12B23P432P")
+	if err != nil {
+		fmt.Println("Codici Fiscali diversi o non validi:",err)
+	} else {
+		fmt.Println("Codice Fiscali uguali")
 	}
 }
 ```
