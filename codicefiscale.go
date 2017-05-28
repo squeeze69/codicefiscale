@@ -1,6 +1,9 @@
 package codicefiscale
 
-import "strings"
+import (
+	"regexp"
+	"strings"
+)
 
 /*
 Verifica codice fiscale
@@ -45,8 +48,9 @@ var ordv = map[string]int{
 //Ingresso: cfin: stringa,non importa maiuscolo o minuscolo
 //Uscita: bool:true (a posto)/false (problemi) e *CFError (nil (a posto)/puntatore all'errore (problemi)
 func CodiceFiscale(cfin string) (bool, *CFError) {
+
 	if len(cfin) == 0 {
-		return true, nil
+		return true, nil //convenzione generale usata sulle routine su Icosaedro
 	}
 	if len(cfin) != 16 {
 		er := new(CFError)
@@ -54,15 +58,15 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 		return false, er
 	}
 
-	cfin = strings.ToUpper(cfin)
-	//verifica per simboli inattesi
-	for _, v := range cfin {
-		if _, ok := ordv[string(v)]; !ok {
-			er := new(CFError)
-			er.msg = "Caratteri Non Validi"
-			return false, er
-		}
+	//verifica per simboli inattesi - usa regexp
+	re, _ := regexp.Compile("[^a-zA-Z0-9]")
+	if re.MatchString(cfin) {
+		er := new(CFError)
+		er.msg = "Caratteri Non Validi"
+		return false, er
 	}
+
+	cfin = strings.ToUpper(cfin)
 	s := tcf[string(cfin[14])]
 	for i := 0; i <= 13; i += 2 {
 		s += tcf[string(cfin[i])] + ordv[string(cfin[i+1])]

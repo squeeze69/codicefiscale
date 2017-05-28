@@ -10,6 +10,8 @@ Simile ma per la [partita IVA](https://github.com/squeeze69/partitaiva)
 
 Porting basato sulle informazioni pubblicate da Umberto Salsi su [Icosaedro](http://www.icosaedro.it/cf-pi/index.html)
 
+Cercate la [generazione del Codice Fiscale](https://github.com/squeeze69/generacodicefiscale)?
+
 ## Verifica del codice di controllo del codice fiscale
 ```
 package main
