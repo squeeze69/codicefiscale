@@ -43,6 +43,13 @@ var ordv = map[string]int{
 	"T": 19, "U": 20, "V": 21, "W": 22, "X": 23, "Y": 24, "Z": 25,
 }
 
+//genera un errore CFError
+func errCFError(s string) *CFError {
+	er := new(CFError)
+	er.msg = s
+	return er
+}
+
 //CodiceFiscale  controlla il codice fiscale, restituisce doppio valore, true/false e messaggio, ove opportuno
 //se cfin è vuota, viene considerata valida, per questo caso, il controllo dovrebbe essere altrove
 //Ingresso: cfin: stringa,non importa maiuscolo o minuscolo
@@ -53,17 +60,13 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 		return true, nil //convenzione generale usata sulle routine su Icosaedro
 	}
 	if len(cfin) != 16 {
-		er := new(CFError)
-		er.msg = "Lunghezza Sbagliata"
-		return false, er
+		return false, errCFError("Lunghezza Sbagliata")
 	}
 
 	//verifica per simboli inattesi - usa regexp
 	re, _ := regexp.Compile("[^a-zA-Z0-9]")
 	if re.MatchString(cfin) {
-		er := new(CFError)
-		er.msg = "Caratteri Non Validi"
-		return false, er
+		return false, errCFError("Caratteri Non validi")
 	}
 
 	cfin = strings.ToUpper(cfin)
@@ -72,9 +75,7 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 		s += tcf[string(cfin[i])] + ordv[string(cfin[i+1])]
 	}
 	if s%26 != ordv[string(cfin[15])] {
-		er := new(CFError)
-		er.msg = "Carattere Di Controllo Non Valido"
-		return false, er
+		return false, errCFError("Carattere Di Controllo Non Valido")
 	}
 	return true, nil
 }

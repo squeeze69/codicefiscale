@@ -63,9 +63,7 @@ func ConfrontaCodicifiscaliOmocodici(a, b string) (bool, *CFError) {
 	ad := deomocodia(a)
 	bd := deomocodia(b)
 	if strings.Compare(ad[0:15], bd[0:15]) != 0 {
-		er := new(CFError)
-		er.msg = "Non corrispondono"
-		return false, er
+		return false, errCFError("Non corrispondono")
 	}
 	return true, nil
 }
@@ -86,8 +84,5 @@ func ConfrontaCodicifiscali(a, b string) (bool, *CFError) {
 	if strings.Compare(a, b) == 0 {
 		return true, nil
 	}
-
-	er := new(CFError)
-	er.msg = "Non corrispondono"
-	return false, er
+	return false, errCFError("Non corrispondono")
 }
