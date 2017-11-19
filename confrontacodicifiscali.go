@@ -26,8 +26,8 @@ var omc = map[string]string{
 	"R": "5", "S": "6", "T": "7", "U": "8", "V": "9",
 }
 
-//inverte le variazioni per omocodie
-func deomocodia(s string) string {
+//Deomocodia inverte le variazioni per omocodie, assume un codice fiscale valido
+func Deomocodia(s string) string {
 	var s2 string
 	for i, c := range s[0:15] {
 		if _, ok := omcndx[i]; ok {
@@ -60,8 +60,8 @@ func ConfrontaCodicifiscaliOmocodici(a, b string) (bool, *CFError) {
 	if strings.Compare(a, b) == 0 {
 		return true, nil
 	}
-	ad := deomocodia(a)
-	bd := deomocodia(b)
+	ad := Deomocodia(a)
+	bd := Deomocodia(b)
 	if strings.Compare(ad[0:15], bd[0:15]) != 0 {
 		return false, errCFError("Non corrispondono")
 	}

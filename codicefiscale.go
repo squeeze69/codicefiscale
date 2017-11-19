@@ -70,6 +70,7 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 	}
 
 	cfin = strings.ToUpper(cfin)
+	//genera codice di controllo per verifica con quello passato
 	s := tcf[string(cfin[14])]
 	for i := 0; i <= 13; i += 2 {
 		s += tcf[string(cfin[i])] + ordv[string(cfin[i+1])]
