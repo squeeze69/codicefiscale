@@ -26,7 +26,8 @@ var omc = map[string]string{
 	"R": "5", "S": "6", "T": "7", "U": "8", "V": "9",
 }
 
-//Deomocodia inverte le variazioni per omocodie, assume un codice fiscale valido
+//Deomocodia inverte le variazioni per omocodie, assume un codice fiscale valido, tutte le lettere maiuscole
+// vocali accentate convertite con vocali non accentate
 func Deomocodia(s string) string {
 	var s2 string
 	for i, c := range s[0:15] {
