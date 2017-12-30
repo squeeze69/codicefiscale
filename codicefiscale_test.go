@@ -68,10 +68,35 @@ func TestConfrontaCodicifiscali(t *testing.T) {
 	fmt.Println("Ok. Uguali")
 
 	a := "ABCDEF12B23P432P"
-	s, _ := Codicedicontrollo("ABCDEF12B23P433")
-	sb := "ABCDEF12B23P433" + s
-	if _, err := ConfrontaCodicifiscali(a, sb); err == nil {
-		t.Fatal("KO. Errore, dovrebbero essere diversi", a, sb, err)
+	b := "ABCDEF12B23P433R"
+	if _, err := ConfrontaCodicifiscali(a, b); err == nil {
+		t.Fatal("KO. Errore, dovrebbero essere diversi", a, b, err)
 	}
 	fmt.Println("Ok. Diversi")
+}
+
+// test aggiuntivi utili per godoc
+func ExampleConfrontaCodicifiscali() {
+	if _, err := ConfrontaCodicifiscali("ABCDEF12B23P432P", "ABCDEF12B23P433R"); err != nil {
+		fmt.Println("ConfrontaCodicifiscali:", err)
+	}
+	// Output: ConfrontaCodicifiscali: Non corrispondono
+}
+
+func ExampleCodicedicontrollo() {
+	if p, err := Codicedicontrollo("ABCDEF12B23P433"); err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(p)
+	}
+	// Output: R
+}
+
+func ExampleCodiceFiscale() {
+	if _, err := CodiceFiscale("ABCDEF12B23P433R"); err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Codice Fiscale Verificato")
+	}
+	// Output: Codice Fiscale Verificato
 }
