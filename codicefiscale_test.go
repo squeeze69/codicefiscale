@@ -50,11 +50,8 @@ func TestConfrontaCodicifiscaliOmocodici(t *testing.T) {
 		t.Fatal("KO. Errore, dovrebbe essere uguale", oa, sb, err)
 	}
 	fmt.Println("Ok. Uguale - test anche con omocodie ", oa, sb)
-
 	s, _ = Codicedicontrollo("ABCDEF12B23P433")
-	o, _ = Codicedicontrollo("ABCDEF12B23P43N")
 	sb = "ABCDEF12B23P433" + s
-	oa = "ABCDEF12B23P43N" + o
 	if _, err := ConfrontaCodicifiscaliOmocodici(oa, sb); err == nil {
 		t.Fatal("KO. Errore, dovrebbero essere diversi", oa, sb, err)
 	}
