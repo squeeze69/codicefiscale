@@ -3,7 +3,7 @@ package codicefiscale
 import "strings"
 
 /*
-Confronto Codifi Fiscali
+Confronto Codici Fiscali
 Versione: 1.0
 Data: 1/5/2017
 Autore: Squeeze69

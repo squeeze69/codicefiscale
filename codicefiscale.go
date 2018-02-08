@@ -63,9 +63,8 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 		return false, errCFError("Lunghezza Sbagliata")
 	}
 
-	//verifica per simboli inattesi - usa regexp
-	re, _ := regexp.Compile("[^a-zA-Z0-9]")
-	if re.MatchString(cfin) {
+	//verifica per simboli inattesi
+	if regexp.MustCompile("[^a-zA-Z0-9]").MatchString(cfin) {
 		return false, errCFError("Caratteri Non validi")
 	}
 
