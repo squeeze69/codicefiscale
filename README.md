@@ -8,6 +8,8 @@
 
 **Download del package**: go get github.com/squeeze69/codicefiscale
 
+**Disponibile come modulo**
+
 Simile ma per la [partita IVA](https://github.com/squeeze69/partitaiva)
 
 Porting basato sulle informazioni pubblicate da Umberto Salsi su [Icosaedro](http://www.icosaedro.it/cf-pi/index.html)
