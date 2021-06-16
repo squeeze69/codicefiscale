@@ -1,6 +1,6 @@
 # Verifica e Confronto Codice Fiscale in [GO](http://golang.org)
 
-[![Build Status](https://travis-ci.org/squeeze69/codicefiscale.svg?branch=master)](https://travis-ci.org/squeeze69/codicefiscale)
+[![Build Status](https://travis-ci.com/squeeze69/codicefiscale.svg?branch=master)](https://travis-ci.com/squeeze69/codicefiscale)
 
 ## Licenza: LGPLv3
 
