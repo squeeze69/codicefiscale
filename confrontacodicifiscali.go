@@ -21,9 +21,9 @@ var omcndx = map[int]bool{
 }
 
 // mappatura per invertire trasformazioni in caso di omocodie
-var omc = map[string]string{
-	"L": "0", "M": "1", "N": "2", "P": "3", "Q": "4",
-	"R": "5", "S": "6", "T": "7", "U": "8", "V": "9",
+var omc = map[rune]string{
+	'L': "0", 'M': "1", 'N': "2", 'P': "3", 'Q': "4",
+	'R': "5", 'S': "6", 'T': "7", 'U': "8", 'V': "9",
 }
 
 //Deomocodia inverte le variazioni per omocodie, assume un codice fiscale valido, tutte le lettere maiuscole
@@ -32,7 +32,7 @@ func Deomocodia(s string) string {
 	var s2 string
 	for i, c := range s[0:15] {
 		if _, ok := omcndx[i]; ok {
-			if v, vb := omc[string(c)]; vb {
+			if v, vb := omc[c]; vb {
 				s2 = s2 + v
 			} else {
 				s2 = s2 + string(c)
@@ -58,12 +58,10 @@ func ConfrontaCodicifiscaliOmocodici(a, b string) (bool, *CFError) {
 	}
 	a = strings.ToUpper(a)
 	b = strings.ToUpper(b)
-	if strings.Compare(a, b) == 0 {
+	if a == b {
 		return true, nil
 	}
-	ad := Deomocodia(a)
-	bd := Deomocodia(b)
-	if strings.Compare(ad[0:15], bd[0:15]) != 0 {
+	if Deomocodia(a)[0:15] != Deomocodia(b)[0:15] {
 		return false, errCFError("Non corrispondono")
 	}
 	return true, nil
@@ -80,9 +78,7 @@ func ConfrontaCodicifiscali(a, b string) (bool, *CFError) {
 	if _, err := CodiceFiscale(b); err != nil {
 		return false, err
 	}
-	a = strings.ToUpper(a)
-	b = strings.ToUpper(b)
-	if strings.Compare(a, b) == 0 {
+	if strings.EqualFold(a, b) {
 		return true, nil
 	}
 	return false, errCFError("Non corrispondono")

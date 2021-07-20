@@ -31,9 +31,9 @@ func Codicedicontrollo(cfin string) (string, *CFError) {
 		return "", errCFError("Caratteri Non Validi")
 	}
 
-	s := tcf[string(cfin[14])]
+	s := tcf[cfin[14]]
 	for i := 0; i <= 13; i += 2 {
-		s += tcf[string(cfin[i])] + ordv[string(cfin[i+1])]
+		s += tcf[cfin[i]] + ordv[cfin[i+1]]
 	}
 	return string(rune(s%26) + rune('A')), nil
 }
