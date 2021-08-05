@@ -25,12 +25,11 @@ func Codicedicontrollo(cfin string) (string, *CFError) {
 	if len(cfin) != 15 {
 		return "", errCFError("Lunghezza Sbagliata")
 	}
-	cfin = strings.ToUpper(cfin)
 	//verifica per simboli inattesi
 	if regexp.MustCompile("[^a-zA-Z0-9]").MatchString(cfin) {
 		return "", errCFError("Caratteri Non Validi")
 	}
-
+	cfin = strings.ToUpper(cfin)
 	s := tcf[cfin[14]]
 	for i := 0; i <= 13; i += 2 {
 		s += tcf[cfin[i]] + ordv[cfin[i+1]]
