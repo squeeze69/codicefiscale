@@ -7,8 +7,7 @@
 **Package**: github.com/squeeze69/codicefiscale
 
 **Download del package**: go get github.com/squeeze69/codicefiscale
-
-**Disponibile come modulo**
+**Nota Bene**: I codici fiscali temporanei sono usano lo stesso criterio di controllo deile partite IVA, quindi il package fratello di questo può essere usato per la validazione.
 
 Simile ma per la [partita IVA](https://github.com/squeeze69/partitaiva)
 
