@@ -40,11 +40,11 @@ func TestCodicedicontrollo(t *testing.T) {
 		t.Fatal("Ko. Errore, il codice di controllo è sbagliato atteso \"P\", avuto", s, err)
 	}
 	fmt.Println("Ok (valido) codice di controllo corrisponde")
-	if _, err = Codicedicontrollo("ABCDEF12B23P43"); err == nil {
+	if _, err = Codicedicontrollo("ABCDEF12B23P43"); err.(*CFError) == nil {
 		t.Fatal("Ko. Errore, la lunghezza è sbagliata, dovrebbe restiturire errore")
 	}
 	fmt.Println("Ok (non valido) lunghezza sbagliata")
-	if _, err = Codicedicontrollo("ABCDEF12B23P*32"); err == nil {
+	if _, err = Codicedicontrollo("ABCDEF12B23P*32"); err.(*CFError) == nil {
 		t.Fatal("Ko. Errore, carattere non ammesso, dovrebbe restiturire errore")
 	}
 	fmt.Println("Ok (non valido) carattere non ammesso")
@@ -68,18 +68,18 @@ func TestConfrontaCodicifiscaliOmocodici(t *testing.T) {
 	s, _ = Codicedicontrollo("ABCDEF12B23P433")
 	sb = "ABCDEF12B23P433" + s
 	if _, err := ConfrontaCodicifiscaliOmocodici(oa, sb); err == nil {
-		t.Fatal("KO. Errore, dovrebbero essere diversi", oa, sb, err)
+		t.Fatal("KO. Errore, dovrebbero essere diversi", oa, sb)
 	}
 	if _, err := ConfrontaCodicifiscaliOmocodici(cof1, sb); err == nil {
-		t.Fatal("KO. Errore, dovrebbe essere uguale", oa, sb, err)
+		t.Fatal("KO. Errore, dovrebbe essere uguale", oa, sb)
 	}
 	if _, err := ConfrontaCodicifiscaliOmocodici(oa, cof2); err == nil {
-		t.Fatal("KO. Errore, dovrebbe essere uguale", oa, sb, err)
+		t.Fatal("KO. Errore, dovrebbe essere uguale", oa, sb)
 	}
 	if _, err := ConfrontaCodicifiscaliOmocodici(cof3, cof3); err != nil {
 		t.Fatal("KO. Errore, dovrebbe essere uguale", cof3, err)
 	}
-	fmt.Println("Ok, errori per codici fiscali sbagliati")
+	fmt.Println("Ok, errori per codici fiscali sbagliati e giusti")
 }
 
 func TestConfrontaCodicifiscali(t *testing.T) {
