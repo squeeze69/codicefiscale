@@ -41,11 +41,11 @@ func TestCodicedicontrollo(t *testing.T) {
 	}
 	fmt.Println("Ok (valido) codice di controllo corrisponde")
 	if _, err = Codicedicontrollo("ABCDEF12B23P43"); err.(*CFError) == nil {
-		t.Fatal("Ko. Errore, la lunghezza è sbagliata, dovrebbe restiturire errore")
+		t.Fatal("Ko. Errore, la lunghezza è sbagliata, dovrebbe restituire errore")
 	}
 	fmt.Println("Ok (non valido) lunghezza sbagliata")
 	if _, err = Codicedicontrollo("ABCDEF12B23P*32"); err.(*CFError) == nil {
-		t.Fatal("Ko. Errore, carattere non ammesso, dovrebbe restiturire errore")
+		t.Fatal("Ko. Errore, carattere non ammesso, dovrebbe restituire errore")
 	}
 	fmt.Println("Ok (non valido) carattere non ammesso")
 }
