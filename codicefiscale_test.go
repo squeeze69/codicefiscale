@@ -16,15 +16,15 @@ func TestCodiceFiscale(t *testing.T) {
 	fmt.Println("test CondiceFiscale")
 	//verifica codici validi
 	for _, v := range testOK {
-		s, err := CodiceFiscale(v)
-		if !s {
+		err := CodiceFiscale(v)
+		if err != nil {
 			t.Fatal("Ko. Errore, Il Codice Fiscale", v, " dovrebbe essere valido", err)
 		}
 		fmt.Printf("Ok (valido) \"%s\"\n", v)
 	}
 	//verifica codici non validi
 	for _, v := range testKO {
-		_, err := CodiceFiscale(v)
+		err := CodiceFiscale(v)
 		if err == nil {
 			t.Fatal("Ko. Errore, Il Codice Fiscale", v, " NON dovrebbe essere valido")
 		}
@@ -61,22 +61,22 @@ func TestConfrontaCodicifiscaliOmocodici(t *testing.T) {
 	o, _ := Codicedicontrollo(cof2)
 	sb := cof1 + s
 	oa := cof2 + o
-	if _, err := ConfrontaCodicifiscaliOmocodici(oa, sb); err != nil {
+	if err := ConfrontaCodicifiscaliOmocodici(oa, sb); err != nil {
 		t.Fatal("KO. Errore, dovrebbe essere uguale", oa, sb, err)
 	}
 	fmt.Println("Ok. Uguale - test anche con omocodie ", oa, sb)
 	s, _ = Codicedicontrollo("ABCDEF12B23P433")
 	sb = "ABCDEF12B23P433" + s
-	if _, err := ConfrontaCodicifiscaliOmocodici(oa, sb); err == nil {
+	if err := ConfrontaCodicifiscaliOmocodici(oa, sb); err == nil {
 		t.Fatal("KO. Errore, dovrebbero essere diversi", oa, sb)
 	}
-	if _, err := ConfrontaCodicifiscaliOmocodici(cof1, sb); err == nil {
+	if err := ConfrontaCodicifiscaliOmocodici(cof1, sb); err == nil {
 		t.Fatal("KO. Errore, dovrebbe essere uguale", oa, sb)
 	}
-	if _, err := ConfrontaCodicifiscaliOmocodici(oa, cof2); err == nil {
+	if err := ConfrontaCodicifiscaliOmocodici(oa, cof2); err == nil {
 		t.Fatal("KO. Errore, dovrebbe essere uguale", oa, sb)
 	}
-	if _, err := ConfrontaCodicifiscaliOmocodici(cof3, cof3); err != nil {
+	if err := ConfrontaCodicifiscaliOmocodici(cof3, cof3); err != nil {
 		t.Fatal("KO. Errore, dovrebbe essere uguale", cof3, err)
 	}
 	fmt.Println("Ok, errori per codici fiscali sbagliati e giusti")
@@ -89,19 +89,19 @@ func TestConfrontaCodicifiscali(t *testing.T) {
 		cofb          = "ABCDEF12B23P433R"
 	)
 	fmt.Println("test ConfrontaCodicifiscali")
-	if _, err := ConfrontaCodicifiscali(cofa, cofa); err != nil {
+	if err := ConfrontaCodicifiscali(cofa, cofa); err != nil {
 		t.Fatal("KO. Errore, dovrebbe essere uguale", err)
 	}
 	fmt.Println("Ok. Uguali")
 
-	if _, err := ConfrontaCodicifiscali(cofa, cofb); err == nil {
+	if err := ConfrontaCodicifiscali(cofa, cofb); err == nil {
 		t.Fatal("KO. Errore, dovrebbero essere diversi", cofa, cofb, err)
 	}
 	fmt.Println("Ok. Diversi")
-	if _, err := ConfrontaCodicifiscali(cof1sbagliato, cofb); err == nil {
+	if err := ConfrontaCodicifiscali(cof1sbagliato, cofb); err == nil {
 		t.Fatal("KO. Errore, dovrebbe rilevare codice sbagliato", cof1sbagliato, err)
 	}
-	if _, err := ConfrontaCodicifiscali(cofa, cof1sbagliato); err == nil {
+	if err := ConfrontaCodicifiscali(cofa, cof1sbagliato); err == nil {
 		t.Fatal("KO. Errore, dovrebbe rilevare codice sbagliato", cof1sbagliato, err)
 	}
 	fmt.Println("Ok. Rileva codici sbagliati")
@@ -109,7 +109,7 @@ func TestConfrontaCodicifiscali(t *testing.T) {
 
 // test aggiuntivi utili per godoc
 func ExampleConfrontaCodicifiscali() {
-	if _, err := ConfrontaCodicifiscali("ABCDEF12B23P432P", "ABCDEF12B23P433R"); err != nil {
+	if err := ConfrontaCodicifiscali("ABCDEF12B23P432P", "ABCDEF12B23P433R"); err != nil {
 		fmt.Println("ConfrontaCodicifiscali:", err)
 	}
 	// Output: ConfrontaCodicifiscali: Non corrispondono
@@ -125,7 +125,7 @@ func ExampleCodicedicontrollo() {
 }
 
 func ExampleCodiceFiscale() {
-	if _, err := CodiceFiscale("ABCDEF12B23P433R"); err != nil {
+	if err := CodiceFiscale("ABCDEF12B23P433R"); err != nil {
 		fmt.Println(err)
 	} else {
 		fmt.Println("Codice Fiscale Verificato")

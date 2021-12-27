@@ -20,8 +20,8 @@ con go: go get github.com/squeeze69/codicefiscale
 
 //Codicedicontrollo : rende il codice di controllo del codice fiscale (15 caratteri)
 //ingresso: cfin (senza codice di controllo)
-//uscita: codice di controllo (vuoto in caso di problemi), err: nil se ok, *CFError se ci sono problemi
-func Codicedicontrollo(cfin string) (string, *CFError) {
+//uscita: codice di controllo (vuoto in caso di problemi), err: nil se ok, error se ci sono problemi
+func Codicedicontrollo(cfin string) (string, error) {
 	if len(cfin) != 15 {
 		return "", errCFError("Lunghezza Sbagliata")
 	}
