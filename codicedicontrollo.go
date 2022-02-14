@@ -2,13 +2,13 @@ package codicefiscale
 
 import (
 	"regexp"
-	"strings"
 )
 
 /*
 Genera codice di controllo codice fiscale
 Versione: 1.0
 Data: 1/5/2017
+Ultima Data: 14/2/2022
 Autore: Squeeze69
 Licenza: LGPL
 Porting basato sulle informazioni pubblicate da Umberto Salsi su Icosaedro:
@@ -29,7 +29,7 @@ func Codicedicontrollo(cfin string) (string, *CFError) {
 	if regexp.MustCompile("[^a-zA-Z0-9]").MatchString(cfin) {
 		return "", errCFError("Caratteri Non Validi")
 	}
-	cfin = strings.ToUpper(cfin)
+	//cfin = strings.ToUpper(cfin)
 	s := tcf[cfin[14]]
 	for i := 0; i <= 13; i += 2 {
 		s += tcf[cfin[i]] + ordv[cfin[i+1]]

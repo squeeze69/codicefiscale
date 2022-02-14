@@ -2,13 +2,13 @@ package codicefiscale
 
 import (
 	"regexp"
-	"strings"
 )
 
 /*
 Verifica codice fiscale
 Versione: 1.0
 Data: 1/5/2017
+Ultima data: 14/2/2022
 Autore: Squeeze69
 Licenza: LGPL
 Porting basato sulle informazioni pubblicate da Umberto Salsi su Icosaedro:
@@ -33,6 +33,9 @@ var tcf = map[byte]int{
 	'9': 21, 'A': 1, 'B': 0, 'C': 5, 'D': 7, 'E': 9, 'F': 13, 'G': 15, 'H': 17,
 	'I': 19, 'J': 21, 'K': 2, 'L': 4, 'M': 18, 'N': 20, 'O': 11, 'P': 3, 'Q': 6, 'R': 8,
 	'S': 12, 'T': 14, 'U': 16, 'V': 10, 'W': 22, 'X': 25, 'Y': 24, 'Z': 23,
+	'a': 1, 'b': 0, 'c': 5, 'd': 7, 'e': 9, 'f': 13, 'g': 15, 'h': 17,
+	'i': 19, 'j': 21, 'k': 2, 'l': 4, 'm': 18, 'n': 20, 'o': 11, 'p': 3, 'q': 6, 'r': 8,
+	's': 12, 't': 14, 'u': 16, 'v': 10, 'w': 22, 'x': 25, 'y': 24, 'z': 23,
 }
 
 //map per simulare "ord" di altri linguaggi - più semplice di int(rune) - int('A') oppure int('0')
@@ -41,6 +44,9 @@ var ordv = map[byte]int{
 	'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9,
 	'K': 10, 'L': 11, 'M': 12, 'N': 13, 'O': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18,
 	'T': 19, 'U': 20, 'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25,
+	'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7, 'i': 8, 'j': 9,
+	'k': 10, 'l': 11, 'm': 12, 'n': 13, 'o': 14, 'p': 15, 'q': 16, 'r': 17, 's': 18,
+	't': 19, 'u': 20, 'v': 21, 'w': 22, 'x': 23, 'y': 24, 'z': 25,
 }
 
 //genera un errore CFError
@@ -68,7 +74,7 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 		return false, errCFError("Caratteri Non validi")
 	}
 
-	cfin = strings.ToUpper(cfin)
+	// cfin = strings.ToUpper(cfin)
 	//genera codice di controllo per verifica con quello passato
 	s := tcf[cfin[14]]
 	for i := 0; i <= 13; i += 2 {
