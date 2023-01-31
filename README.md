@@ -1,4 +1,4 @@
-# Verifica e Confronto Codice Fiscale in [GO](http://golang.org)
+# Verifica e Confronto Codice Fiscale in [GO](http://go.dev)
 
 ## Licenza: LGPLv3
 
