@@ -47,39 +47,39 @@ func Deomocodia(s string) string {
 //ConfrontaCodicifiscaliOmocodici : ingresso a,b, tiene conto di omocodie per confronto
 //ingresso: a,b stringhe con i codici fiscali da confrontare
 //se non corrispondono, riconduce entrambi alla forma non per omocodie e riconfronta
-//uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
+//uscita: error (nil se va bene)
 //da sostituire: 7,8,10,11,13,14,15
-func ConfrontaCodicifiscaliOmocodici(a, b string) (bool, *CFError) {
-	if _, err := CodiceFiscale(a); err != nil {
-		return false, err
+func ConfrontaCodicifiscaliOmocodici(a, b string) error {
+	if err := CodiceFiscale(a); err != nil {
+		return err
 	}
-	if _, err := CodiceFiscale(b); err != nil {
-		return false, err
+	if err := CodiceFiscale(b); err != nil {
+		return err
 	}
 	a = strings.ToUpper(a)
 	b = strings.ToUpper(b)
 	if a == b {
-		return true, nil
+		return nil
 	}
 	if Deomocodia(a)[0:15] != Deomocodia(b)[0:15] {
-		return false, errCFError("Non corrispondono")
+		return errCFError("Non corrispondono")
 	}
-	return true, nil
+	return nil
 }
 
 //ConfrontaCodicifiscali : controlla e confronta due codici fiscali
 //DEVONO corrispondere al 100% - prima verifica il codice di controllo
 //Ingresso: a,b : string : codifici fiscali
-//Uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
-func ConfrontaCodicifiscali(a, b string) (bool, *CFError) {
-	if _, err := CodiceFiscale(a); err != nil {
-		return false, err
+//Uscita: error (nil se va bene)
+func ConfrontaCodicifiscali(a, b string) error {
+	if err := CodiceFiscale(a); err != nil {
+		return err
 	}
-	if _, err := CodiceFiscale(b); err != nil {
-		return false, err
+	if err := CodiceFiscale(b); err != nil {
+		return err
 	}
 	if strings.EqualFold(a, b) {
-		return true, nil
+		return nil
 	}
-	return false, errCFError("Non corrispondono")
+	return errCFError("Non corrispondono")
 }
