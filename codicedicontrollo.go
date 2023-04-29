@@ -1,9 +1,5 @@
 package codicefiscale
 
-import (
-	"regexp"
-)
-
 /*
 Genera codice di controllo codice fiscale
 Versione: 1.0
@@ -26,7 +22,7 @@ func Codicedicontrollo(cfin string) (string, *CFError) {
 		return "", errCFError("Lunghezza Sbagliata")
 	}
 	//verifica per simboli inattesi
-	if regexp.MustCompile("[^a-zA-Z0-9]").MatchString(cfin) {
+	if alfanumerici.MatchString(cfin) {
 		return "", errCFError("Caratteri Non Validi")
 	}
 	//cfin = strings.ToUpper(cfin)
