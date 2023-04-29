@@ -18,7 +18,7 @@ package: https://github.com/squeeze69/codicefiscale
 con go: go get github.com/squeeze69/codicefiscale
 */
 
-//CFError - error structure for CodiceFiscale - identificabile con typecast
+// CFError - error structure for CodiceFiscale - identificabile con typecast
 type CFError struct {
 	msg string
 }
@@ -27,7 +27,7 @@ func (cf *CFError) Error() string {
 	return cf.msg
 }
 
-//decodifica carattere di controllo cf
+// decodifica carattere di controllo cf
 var tcf = map[byte]int{
 	'0': 1, '1': 0, '2': 5, '3': 7, '4': 9, '5': 13, '6': 15, '7': 17, '8': 19,
 	'9': 21, 'A': 1, 'B': 0, 'C': 5, 'D': 7, 'E': 9, 'F': 13, 'G': 15, 'H': 17,
@@ -38,7 +38,7 @@ var tcf = map[byte]int{
 	's': 12, 't': 14, 'u': 16, 'v': 10, 'w': 22, 'x': 25, 'y': 24, 'z': 23,
 }
 
-//map per simulare "ord" di altri linguaggi - più semplice di int(rune) - int('A') oppure int('0')
+// map per simulare "ord" di altri linguaggi - più semplice di int(rune) - int('A') oppure int('0')
 var ordv = map[byte]int{
 	'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
 	'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9,
@@ -49,17 +49,19 @@ var ordv = map[byte]int{
 	't': 19, 'u': 20, 'v': 21, 'w': 22, 'x': 23, 'y': 24, 'z': 25,
 }
 
-//genera un errore CFError
+// genera un errore CFError
 func errCFError(s string) *CFError {
 	er := new(CFError)
 	er.msg = s
 	return er
 }
 
-//CodiceFiscale  controlla il codice fiscale, restituisce doppio valore, true/false e messaggio, ove opportuno
-//se cfin è vuota, viene considerata valida, per questo caso, il controllo dovrebbe essere altrove
-//Ingresso: cfin: stringa,non importa maiuscolo o minuscolo
-//Uscita: bool:true (a posto)/false (problemi) e *CFError (nil (a posto)/puntatore all'errore (problemi)
+var alfanumerici = regexp.MustCompile("[^a-zA-Z0-9]")
+
+// CodiceFiscale  controlla il codice fiscale, restituisce doppio valore, true/false e messaggio, ove opportuno
+// se cfin è vuota, viene considerata valida, per questo caso, il controllo dovrebbe essere altrove
+// Ingresso: cfin: stringa,non importa maiuscolo o minuscolo
+// Uscita: bool:true (a posto)/false (problemi) e *CFError (nil (a posto)/puntatore all'errore (problemi)
 func CodiceFiscale(cfin string) (bool, *CFError) {
 
 	if len(cfin) == 0 {
@@ -70,7 +72,7 @@ func CodiceFiscale(cfin string) (bool, *CFError) {
 	}
 
 	//verifica per simboli inattesi
-	if regexp.MustCompile("[^a-zA-Z0-9]").MatchString(cfin) {
+	if alfanumerici.MatchString(cfin) {
 		return false, errCFError("Caratteri Non validi")
 	}
 

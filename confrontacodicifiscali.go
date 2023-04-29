@@ -15,7 +15,7 @@ package: https://github.com/squeeze69/codicefiscale
 con go: go get github.com/squeeze69/codicefiscale
 */
 
-//	caratteri da modificare, base 1: 7, 8, 10, 11, 13, 14, 15
+// caratteri da modificare, base 1: 7, 8, 10, 11, 13, 14, 15
 var omcndx = map[int]bool{
 	6: true, 7: true, 9: true, 10: true, 12: true, 13: true, 14: true,
 }
@@ -26,7 +26,7 @@ var omc = map[rune]string{
 	'R': "5", 'S': "6", 'T': "7", 'U': "8", 'V': "9",
 }
 
-//Deomocodia inverte le variazioni per omocodie, assume un codice fiscale valido, tutte le lettere maiuscole
+// Deomocodia inverte le variazioni per omocodie, assume un codice fiscale valido, tutte le lettere maiuscole
 // vocali accentate convertite con vocali non accentate
 func Deomocodia(s string) string {
 	var s2 string
@@ -44,11 +44,11 @@ func Deomocodia(s string) string {
 	return s2
 }
 
-//ConfrontaCodicifiscaliOmocodici : ingresso a,b, tiene conto di omocodie per confronto
-//ingresso: a,b stringhe con i codici fiscali da confrontare
-//se non corrispondono, riconduce entrambi alla forma non per omocodie e riconfronta
-//uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
-//da sostituire: 7,8,10,11,13,14,15
+// ConfrontaCodicifiscaliOmocodici : ingresso a,b, tiene conto di omocodie per confronto
+// ingresso: a,b stringhe con i codici fiscali da confrontare
+// se non corrispondono, riconduce entrambi alla forma non per omocodie e riconfronta
+// uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
+// da sostituire: 7,8,10,11,13,14,15
 func ConfrontaCodicifiscaliOmocodici(a, b string) (bool, *CFError) {
 	if _, err := CodiceFiscale(a); err != nil {
 		return false, err
@@ -67,10 +67,10 @@ func ConfrontaCodicifiscaliOmocodici(a, b string) (bool, *CFError) {
 	return true, nil
 }
 
-//ConfrontaCodicifiscali : controlla e confronta due codici fiscali
-//DEVONO corrispondere al 100% - prima verifica il codice di controllo
-//Ingresso: a,b : string : codifici fiscali
-//Uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
+// ConfrontaCodicifiscali : controlla e confronta due codici fiscali
+// DEVONO corrispondere al 100% - prima verifica il codice di controllo
+// Ingresso: a,b : string : codifici fiscali
+// Uscita: bool (true:ok,false:ko), *CFError (nil se va bene)
 func ConfrontaCodicifiscali(a, b string) (bool, *CFError) {
 	if _, err := CodiceFiscale(a); err != nil {
 		return false, err
