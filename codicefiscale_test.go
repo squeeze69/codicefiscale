@@ -1,6 +1,7 @@
 package codicefiscale
 
 //test file
+//Licenza: LGPLv3
 
 import (
 	"fmt"

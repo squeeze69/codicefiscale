@@ -7,7 +7,7 @@ Confronto Codici Fiscali
 Versione: 1.0
 Data: 1/5/2017
 Autore: Squeeze69
-Licenza: LGPL
+Licenza: LGPLv3
 Porting basato sulle informazioni pubblicate da Umberto Salsi su Icosaedro:
 sito web: http://www.icosaedro.it/cf-pi/index.html
 
